@@ -18,6 +18,7 @@ Plug 'w0rp/ale' " Erorr highlighting / linting while editing
 Plug 'vimwiki/vimwiki' " Vim wiki
 Plug 'junegunn/goyo.vim' " Distraction free writing
 Plug 'joshdick/onedark.vim' " Color scheme
+Plug 'hhvm/vim-hack' " Hack support
 call plug#end()
 
 " Important for lua quality-of-life
@@ -165,3 +166,8 @@ lua wiki = require('wiki')
 command! Today :lua wiki.genToday()<CR>
 command! Days :lua wiki.genDays()<CR>
 command! Checkify :lua wiki.checkify()<CR>
+
+set rtp+=/usr/local/share/myc/vim
+nmap <leader>t :MYC<CR>
+source $ADMIN_SCRIPTS/vim/biggrep.vim
+
