@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 [user]
 	name = Ryan Goldstein
-	email = ryan@ryanisaacg.com
+	email = ryanisaacg@fb.com
 [alias]
     pl=pull --ff-only --prune
     pu=push
@@ -31,4 +31,8 @@
 [merge]
 	defaultToUpstream = true
 [credential]
-	helper = store
+    helper = store
+[http]
+    proxy = fwdproxy:8080
+[https]
+    proxy = fwdproxy:8080
