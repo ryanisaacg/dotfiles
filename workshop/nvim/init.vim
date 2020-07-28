@@ -167,6 +167,8 @@ command! Today :lua wiki.genToday()<CR>
 command! Days :lua wiki.genDays()<CR>
 command! Checkify :lua wiki.checkify()<CR>
 
+let g:javascript_plugin_flow = 1
+
 set rtp+=/usr/local/share/myc/vim
 nmap <leader>t :MYC<CR>
 source $ADMIN_SCRIPTS/vim/biggrep.vim
