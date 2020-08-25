@@ -10,7 +10,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " File fuzzy f
 Plug 'airblade/vim-gitgutter' " Show git diff lines
 Plug 'tpope/vim-rsi' " Add the readline keys to Github
 Plug 'tpope/vim-fugitive' " Git wrapper for Vim
-Plug 'tpope/vim-dispatch' " Background tasks for Vim
 Plug 'tpope/vim-sensible' " Some nice defaults for Vim
 Plug 'tpope/vim-eunuch' " Some nice unix stuff for Vim (rename file and buffer, sudo edit)
 Plug 'sheerun/vim-polyglot' " Add a bunch of language support plugins on demand
@@ -157,7 +156,7 @@ let &t_ZR="\e[23m"
 " Highlight trailing whitespace
 highlight ExtraWhitespace ctermbg=red guibg=Red
 match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * highlight ExtraWhitespace ctermbg=black guibg=None
+autocmd InsertEnter * highlight clear ExtraWhitespace
 autocmd InsertLeave * highlight ExtraWhitespace ctermbg=red guibg=red
 
 " Configure VimWiki
