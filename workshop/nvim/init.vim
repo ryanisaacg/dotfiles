@@ -43,8 +43,8 @@ set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 
 "Tabs
 "Each indent should be 4 space characters
-set tabstop=4 "Make each tab 4 spaces
-set shiftwidth=4 "Make sure auto-tabbing only indents 4 spaces
+set tabstop=2 "Make each tab 4 spaces
+set shiftwidth=2 "Make sure auto-tabbing only indents 4 spaces
 set autoindent
 set expandtab
 set smarttab
