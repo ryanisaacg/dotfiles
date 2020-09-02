@@ -37,7 +37,7 @@ end
 function m.checkify()
     line = vim.api.nvim_get_current_line()
     local is_bottom = false
-    while not is_bottom and util.starts_with(util.trim(line), '- ') do
+    while not is_bottom and util.starts_with(util.trim(line), '- ') and not util.starts_with(util.trim(line), '- [') do
         -- Check if we're at the bottom of the document
         local cursor = vim.api.nvim_win_get_cursor(0)
         is_bottom = cursor[1] == vim.api.nvim_buf_line_count(0)
