@@ -7,7 +7,7 @@
 "Install the plugins
 call plug#begin(stdpath('data') . '/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " File fuzzy finding
-Plug 'airblade/vim-gitgutter' " Show git diff lines
+"Plug 'airblade/vim-gitgutter' " Show git diff lines
 Plug 'tpope/vim-rsi' " Add the readline keys to Github
 Plug 'tpope/vim-fugitive' " Git wrapper for Vim
 Plug 'tpope/vim-sensible' " Some nice defaults for Vim
@@ -16,10 +16,10 @@ Plug 'sheerun/vim-polyglot' " Add a bunch of language support plugins on demand
 Plug 'w0rp/ale' " Erorr highlighting / linting while editing
 Plug 'vimwiki/vimwiki' " Vim wiki
 Plug 'junegunn/goyo.vim' " Distraction free writing
-Plug 'hhvm/vim-hack' " Hack support
-" Plug 'joshdick/onedark.vim' " Color scheme
+"Plug 'joshdick/onedark.vim' " Color scheme
 Plug 'altercation/vim-colors-solarized'
-Plug 'MattesGroeger/vim-bookmarks' " Vim Bookmarks
+Plug 'hhvm/vim-hack' " Hack support
+Plug 'MattesGroeger/vim-bookmarks'
 call plug#end()
 
 " Important for lua quality-of-life
@@ -39,6 +39,7 @@ set showcmd
 set autoread "Reload files automatically when they're changed outside vim
 set splitbelow "Open a split below the current split
 set splitright "Open a split to the right of the current split
+colorscheme solarized
 
 colorscheme solarized
 
@@ -189,3 +190,6 @@ endfunction
 
 nnoremap <leader>6 :call PopulatePasteBufferFromOSX()<cr>
 nnoremap <leader>7 :call PropagatePasteBufferToOSX()<cr>
+
+" Configure the bookmarks
+let g:bookmark_sign = '♥'
