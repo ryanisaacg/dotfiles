@@ -138,6 +138,9 @@ let g:is_posix=1
 " Leave Vim screen on scrollback instead of clearing it
 command! Persist :set t_ti= t_te=
 
+" Echo expanded
+command! -nargs=1 Expand :echo expand(<f-args>)
+
 " Configure syntax highlighting
 function! InitGui()
     if exists('g:GuiLoaded')
