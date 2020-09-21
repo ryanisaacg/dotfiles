@@ -108,7 +108,7 @@ nmap <silent> <leader>wc :VimwikiTOC<CR>
 nmap <silent> <leader><CR> :call NormalizeLocalLink(0)<CR>
 vmap <silent> <leader><CR> :<C-U>call NormalizeLocalLink(1)<CR>
 " Configure the statusline
-set statusline=%#StatusLine#%f%m%r%h%w%=\ [%Y]\ [%{&ff}]\ [line:\ %0l,\ column:\ %0v]\ [%p%%]
+set statusline=%f%m%r%h%w%=\ [%Y]\ [%{&ff}]\ [line:\ %0l,\ column:\ %0v]\ [%p%%]
 "set guicursor=
 
 " Custom commands
@@ -147,8 +147,7 @@ function! InitGui()
         "call s:h("ALEError", { "fg": s:red, "gui": "underline", "cterm": "underline" }) " Highligh error as red, underlined.
         "call s:h("ALEWarning", { "gui": "underline", "cterm": "underline"})  " Underline for warning.
         "call s:h("ALEInfo", { "gui": "underline", "cterm": "underline"}) " Underline for info tips.
-        colorscheme gruvbox
-        hi VimwikiLink cterm=underline ctermfg=DarkBlue gui=underline guifg=#2200CC
+        "colorscheme gruvbox
     endif
 endfunction
 if has('nvim-0.4')
@@ -170,7 +169,7 @@ command! Today :lua wiki.genToday()<CR>
 command! Days :lua wiki.genDays()<CR>
 command! Checkify :lua wiki.checkify()<CR>
 nmap <silent> <leader>wg :VimwikiGoto
-hi VimwikiLink cterm=underline ctermfg=DarkBlue
+hi VimwikiLink cterm=underline ctermfg=DarkBlue gui=underline guifg=#458588
 
 let g:javascript_plugin_flow = 1
 
