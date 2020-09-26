@@ -107,7 +107,7 @@ nmap <silent> <leader>wc :VimwikiTOC<CR>
 nmap <silent> <leader><CR> :call NormalizeLocalLink(0)<CR>
 vmap <silent> <leader><CR> :<C-U>call NormalizeLocalLink(1)<CR>
 " Configure the statusline
-set statusline=%#StatusLine#%f%m%r%h%w%=\ [%Y]\ [%{&ff}]\ [line:\ %0l,\ column:\ %0v]\ [%p%%]
+set statusline=%f%m%r%h%w%=\ [%Y]\ [%{&ff}]\ [line:\ %0l,\ column:\ %0v]\ [%p%%]
 "set guicursor=
 
 " Custom commands
@@ -137,14 +137,16 @@ let g:is_posix=1
 " Leave Vim screen on scrollback instead of clearing it
 command! Persist :set t_ti= t_te=
 
+" Echo expanded
+command! -nargs=1 Expand :echo expand(<f-args>)
+
 " Configure syntax highlighting
 function! InitGui()
     if exists('g:GuiLoaded')
         "call s:h("ALEError", { "fg": s:red, "gui": "underline", "cterm": "underline" }) " Highligh error as red, underlined.
         "call s:h("ALEWarning", { "gui": "underline", "cterm": "underline"})  " Underline for warning.
         "call s:h("ALEInfo", { "gui": "underline", "cterm": "underline"}) " Underline for info tips.
-        colorscheme gruvbox
-        hi VimwikiLink cterm=underline ctermfg=DarkBlue gui=underline guifg=#2200CC
+        "colorscheme gruvbox
     endif
 endfunction
 if has('nvim-0.4')
@@ -166,4 +168,29 @@ command! Today :lua wiki.genToday()<CR>
 command! Days :lua wiki.genDays()<CR>
 command! Checkify :lua wiki.checkify()<CR>
 nmap <silent> <leader>wg :VimwikiGoto
-hi VimwikiLink cterm=underline ctermfg=DarkBlue
+hi VimwikiLink cterm=underline ctermfg=DarkBlue gui=underline guifg=#458588
+
+" Configure the bookmarks
+let g:bookmark_sign = '♥'
+
+if stridx(hostname(), "infra.net") != -1
+    let g:javascript_plugin_flow = 1
+
+    set rtp+=/usr/local/share/myc/vim
+    nmap <leader>t :MYC<CR>
+    source $ADMIN_SCRIPTS/vim/biggrep.vim
+
+    function! PropagatePasteBufferToOSX()
+      let @n=getreg("*")
+      call system('pbcopy-remote', @n)
+      echo "done"
+    endfunction
+
+    function! PopulatePasteBufferFromOSX()
+      let @+ = system('pbpaste-remote')
+      echo "done"
+    endfunction
+
+    nnoremap <leader>6 :call PopulatePasteBufferFromOSX()<cr>
+    nnoremap <leader>7 :call PropagatePasteBufferToOSX()<cr>
+endif

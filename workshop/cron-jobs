@@ -1,1 +1,0 @@
-0 * * * * cd ~/Dropbox/Budget && ~/.cargo/bin/budgeting budget.txt > budget-cache.txt 2> budget-error.txt
