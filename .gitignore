@@ -1,5 +1,7 @@
 # Don't check in the netrwhist file
 workshop/nvim/.netrwhist
+# Don't check in the spelling files
+workshop/nvim/spell/
 # Don't check in the Fish local files
 **/fishd.*
 **/fish_variables
