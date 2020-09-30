@@ -14,9 +14,9 @@ Plug 'tpope/vim-eunuch' " Some nice unix stuff for Vim (rename file and buffer, 
 Plug 'sheerun/vim-polyglot' " Add a bunch of language support plugins on demand
 Plug 'w0rp/ale' " Erorr highlighting / linting while editing
 Plug 'vimwiki/vimwiki' " Vim wiki
-Plug 'junegunn/goyo.vim' " Distraction free writing
 Plug 'morhetz/gruvbox'
 Plug 'MattesGroeger/vim-bookmarks' " Vim Bookmarks
+Plug 'hhvm/vim-hack' " Hack support
 call plug#end()
 
 " Important for lua quality-of-life
@@ -174,23 +174,24 @@ hi VimwikiLink cterm=underline ctermfg=DarkBlue gui=underline guifg=#458588
 let g:bookmark_sign = '♥'
 
 if stridx(hostname(), "infra.net") != -1
-    let g:javascript_plugin_flow = 1
+  let g:javascript_plugin_flow = 1
 
-    set rtp+=/usr/local/share/myc/vim
-    nmap <leader>t :MYC<CR>
-    source $ADMIN_SCRIPTS/vim/biggrep.vim
+  set rtp+=/usr/local/share/myc/vim
+  nmap <leader>t :MYC<CR>
+  source $ADMIN_SCRIPTS/vim/biggrep.vim
 
-    function! PropagatePasteBufferToOSX()
-      let @n=getreg("*")
-      call system('pbcopy-remote', @n)
-      echo "done"
-    endfunction
+  function! PropagatePasteBufferToOSX()
+    let @n=getreg("*")
+    call system('pbcopy-remote', @n)
+    echo "done"
+  endfunction
 
-    function! PopulatePasteBufferFromOSX()
-      let @+ = system('pbpaste-remote')
-      echo "done"
-    endfunction
+  function! PopulatePasteBufferFromOSX()
+    let @+ = system('pbpaste-remote')
+    echo "done"
+  endfunction
 
-    nnoremap <leader>6 :call PopulatePasteBufferFromOSX()<cr>
-    nnoremap <leader>7 :call PropagatePasteBufferToOSX()<cr>
+  nnoremap <leader>6 :call PopulatePasteBufferFromOSX()<cr>
+  nnoremap <leader>7 :call PropagatePasteBufferToOSX()<cr>
+  set shiftwidth=2
 endif
