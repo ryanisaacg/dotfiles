@@ -173,7 +173,7 @@ hi VimwikiLink cterm=underline ctermfg=DarkBlue gui=underline guifg=#458588
 " Configure the bookmarks
 let g:bookmark_sign = '♥'
 
-if stridx(hostname(), "infra.net") != -1
+if stridx(hostname(), "infra.net") != -1 || stridx(hostname(), "devvm") != -1
   let g:javascript_plugin_flow = 1
 
   set rtp+=/usr/local/share/myc/vim
