@@ -17,6 +17,7 @@ Plug 'vimwiki/vimwiki' " Vim wiki
 Plug 'morhetz/gruvbox'
 Plug 'MattesGroeger/vim-bookmarks' " Vim Bookmarks
 Plug 'hhvm/vim-hack' " Hack support
+Plug 'dkarter/bullets.vim'
 call plug#end()
 
 " Important for lua quality-of-life
