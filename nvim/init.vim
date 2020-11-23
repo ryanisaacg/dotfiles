@@ -13,7 +13,7 @@ Plug 'tpope/vim-sensible' " Some nice defaults for Vim
 Plug 'tpope/vim-eunuch' " Some nice unix stuff for Vim (rename file and buffer, sudo edit)
 Plug 'sheerun/vim-polyglot' " Add a bunch of language support plugins on demand
 Plug 'w0rp/ale' " Erorr highlighting / linting while editing
-Plug 'vimwiki/vimwiki' " Vim wiki
+"Plug 'vimwiki/vimwiki' " Vim wiki
 Plug 'morhetz/gruvbox'
 Plug 'MattesGroeger/vim-bookmarks' " Vim Bookmarks
 Plug 'hhvm/vim-hack' " Hack support
@@ -197,3 +197,7 @@ if stridx(hostname(), "infra.net") != -1 || stridx(hostname(), "devvm") != -1
   nnoremap <leader>7 :call PropagatePasteBufferToOSX()<cr>
   set shiftwidth=2
 endif
+
+" Configure imago stuff
+set conceallevel=2
+autocmd BufNewFile,BufRead *.txt set ft=markdown
