@@ -171,6 +171,7 @@ command! Days :lua wiki.genDays()<CR>
 command! Checkify :lua wiki.checkify()<CR>
 nmap <silent> <leader>wg :VimwikiGoto
 hi VimwikiLink cterm=underline ctermfg=DarkBlue gui=underline guifg=#458588
+hi htmlItalic cterm=italic gui=italic
 
 " Configure the bookmarks
 let g:bookmark_sign = '♥'
