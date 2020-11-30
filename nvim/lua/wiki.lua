@@ -8,13 +8,13 @@ end
 
 function m.genToday()
     -- Copy the Plans section from yesterday
-    util.keys(' w y')
+    util.keys(' i y')
     util.keys('/Plans\n')
     util.keys(' c')
     util.keys('VGy')
 
     -- Go to today and generate the headers
-    util.keys(' w w')
+    util.keys(' i i')
     local header = os.date('# %A, %d %B %Y') -- Monday, 20 July 2020
     util.keys('i'..header..'\n<Esc>')
     if is_weekday(os.date('%A')) then
