@@ -15,7 +15,6 @@ Plug 'sheerun/vim-polyglot' " Add a bunch of language support plugins on demand
 Plug 'w0rp/ale' " Erorr highlighting / linting while editing
 Plug 'vimwiki/vimwiki' " Vim wiki
 Plug 'morhetz/gruvbox'
-Plug 'MattesGroeger/vim-bookmarks' " Vim Bookmarks
 Plug 'hhvm/vim-hack' " Hack support
 call plug#end()
 
