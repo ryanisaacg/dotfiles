@@ -38,14 +38,19 @@ function m.checkify()
     line = vim.api.nvim_get_current_line()
     local is_bottom = false
     while not is_bottom and
-        util.starts_with(util.trim(line), '- ') and
-        not util.starts_with(util.trim(line), '- [ ]')
+        (util.starts_with(util.trim(line), '- ') or util.starts_with(util.trim(line), '* '))
+        and not (util.starts_with(util.trim(line), '- [ ]') or util.starts_with(util.trim(line), '* [ ]'))
         do
         -- Check if we're at the bottom of the document
         local cursor = vim.api.nvim_win_get_cursor(0)
         is_bottom = cursor[1] == vim.api.nvim_buf_line_count(0)
         -- Convert to checkmark and move down a row
-        api.nvim_command('VimwikiToggleListItem')
+        local bullet = 0
+        while string.sub(line, bullet, bullet) ~= '-' and string.sub(line, bullet, bullet) ~= '*' do
+            bullet = bullet + 1
+        end
+        line = string.sub(line, 0, bullet) .. ' [ ]' .. string.sub(line, bullet + 1, -1)
+        vim.api.nvim_buf_set_lines(0, cursor[1] - 1, cursor[1], true, { line })
         local new_cursor = { cursor[1] + 1, cursor[2] }
         vim.api.nvim_win_set_cursor(0, new_cursor)
         line = vim.api.nvim_get_current_line()
