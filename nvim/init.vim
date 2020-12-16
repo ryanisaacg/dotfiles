@@ -5,16 +5,17 @@
 "  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 "endif
 "Install the plugins
+let g:polyglot_disabled = ['hack']
 call plug#begin(stdpath('data') . '/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " File fuzzy finding
 Plug 'airblade/vim-gitgutter' " Show git diff lines
 Plug 'tpope/vim-rsi' " Add the readline keys to Vim
-Plug 'tpope/vim-sensible' " Some nice defaults for Vim
 Plug 'tpope/vim-eunuch' " Some nice unix stuff for Vim (rename file and buffer, sudo edit)
 Plug 'w0rp/ale' " Erorr highlighting / linting while editing
 Plug 'morhetz/gruvbox'
 Plug 'hhvm/vim-hack' " Hack support
 Plug 'dkarter/bullets.vim'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 " Important for lua quality-of-life
