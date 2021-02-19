@@ -165,6 +165,7 @@ autocmd InsertLeave * highlight ExtraWhitespace ctermbg=red guibg=red
 let g:vimwiki_list = [{ 'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.txt' }]
 lua wiki = require('wiki')
 command! Today :lua wiki.genToday()<CR>
+command! Tomorrow :lua wiki.genTomorrow()<CR>
 command! Days :lua wiki.genDays()<CR>
 command! Checkify :lua wiki.checkify()<CR>
 nmap <silent> <leader>wg :VimwikiGoto
