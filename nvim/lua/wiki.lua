@@ -20,7 +20,7 @@ function m.genToday()
     if is_weekday(os.date('%A')) then
         util.keys('i\n## Work\n<Esc>')
     end
-    util.keys('i\n## Home\n\n[Journal](journal-questions)\n<Esc>')
+    util.keys('i\n## Life\n\n## Hobbies\n\n[Journal](journal-questions)\n<Esc>')
 
     -- Paste in the plans
     util.keys('p')
@@ -41,7 +41,7 @@ function m.genTomorrow()
     if is_weekday(os.date('%A', tomorrow)) then
         util.keys('i\n## Work\n<Esc>')
     end
-    util.keys('i\n## Home\n\n[Journal](journal-questions)\n<Esc>')
+    util.keys('i\n## Life\n\n## Hobbies\n\n[Journal](journal-questions)\n<Esc>')
 
     -- Paste in the plans
     util.keys('p')
