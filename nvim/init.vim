@@ -130,6 +130,7 @@ function! SetTitle(title)
     set title
     let &titlestring=a:title
 endfunction
+command! -nargs=1 Title :call SetTitle(<f-args>) <CR>
 
 " Don't highlight POSIX sh features as errors
 let g:is_posix=1
