@@ -20,7 +20,28 @@ function m.genToday()
     if is_weekday(os.date('%A')) then
         util.keys('i\n## Work\n<Esc>')
     end
-    util.keys('i\n## Home\n<Esc>')
+    util.keys('i\n## Life\n\n## Hobbies\n\n[Journal](journal-questions)\n<Esc>')
+
+    -- Paste in the plans
+    util.keys('p')
+end
+
+function m.genTomorrow()
+    -- Copy the Plans section from today
+    util.keys(' i i')
+    util.keys('/Plans\n')
+    util.keys(' c')
+    util.keys('VGy')
+
+    -- Go to tomorrow and generate the headers
+    util.keys(' i t')
+    local tomorrow = os.time() + 24 * 60 * 60
+    local header = os.date('# %A, %d %B %Y', tomorrow) -- Monday, 20 July 2020
+    util.keys('i'..header..'\n<Esc>')
+    if is_weekday(os.date('%A', tomorrow)) then
+        util.keys('i\n## Work\n<Esc>')
+    end
+    util.keys('i\n## Life\n\n## Hobbies\n\n[Journal](journal-questions)\n<Esc>')
 
     -- Paste in the plans
     util.keys('p')
