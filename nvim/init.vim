@@ -173,9 +173,6 @@ nmap <silent> <leader>wg :VimwikiGoto
 hi VimwikiLink cterm=underline ctermfg=DarkBlue gui=underline guifg=#458588
 hi htmlItalic cterm=italic gui=italic
 
-" Configure the bookmarks
-let g:bookmark_sign = '♥'
-
 if stridx(hostname(), "infra.net") != -1 || stridx(hostname(), "devvm") != -1
   let g:javascript_plugin_flow = 1
 
@@ -202,3 +199,8 @@ endif
 " Configure imago stuff
 set conceallevel=2
 autocmd BufNewFile,BufRead *.txt set ft=markdown
+
+" Stop writing to all
+cabbrev W w
+
+
