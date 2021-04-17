@@ -199,5 +199,5 @@ if stridx(hostname(), "infra.net") != -1 || stridx(hostname(), "devvm") != -1
 endif
 
 " Configure imago stuff
+lua imago_config = { root = "~/vimwiki", file_extension = "md" }
 set conceallevel=2
-autocmd BufNewFile,BufRead *.txt set ft=markdown
