@@ -130,6 +130,7 @@ function! SetTitle(title)
     set title
     let &titlestring=a:title
 endfunction
+command! -nargs=1 Title :call SetTitle(<f-args>) <CR>
 
 " Don't highlight POSIX sh features as errors
 let g:is_posix=1
@@ -172,9 +173,6 @@ nmap <silent> <leader>wg :VimwikiGoto
 hi VimwikiLink cterm=underline ctermfg=DarkBlue gui=underline guifg=#458588
 hi htmlItalic cterm=italic gui=italic
 
-" Configure the bookmarks
-let g:bookmark_sign = '♥'
-
 if stridx(hostname(), "infra.net") != -1 || stridx(hostname(), "devvm") != -1
   let g:javascript_plugin_flow = 1
 
@@ -201,3 +199,7 @@ endif
 " Configure imago stuff
 lua imago_config = { root = "~/vimwiki", file_extension = "md" }
 set conceallevel=2
+
+" Stop writing to all
+cabbrev W w
+
