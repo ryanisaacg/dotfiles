@@ -1,8 +1,21 @@
 {
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "defaultProfile" : "{8ebae74d-3401-490c-aad7-2a6e1275f047}",
+    "defaultProfile" : "{3fceea15-d099-4ce7-8aad-9a76379cc511}",
     "profiles" :
     [
+		{
+            "name" : "Git Bash Gruvbox",
+            "commandline" : "C:\\Program Files\\Git\\bin\\bash.exe",
+            "icon" : "%SystemRoot%\\Installer\\{B324E508-9AAE-446A-BC4C-BB446E8C2A18}\\PowerShellExe.ico",
+            "colorScheme" : "Gruvbox",
+            "cursorColor" : "#FFFFFF",
+            "cursorShape": "bar",
+            "fontFace" : "Consolas",
+            "fontSize" : 12,
+            "guid" : "{3fceea15-d099-4ce7-8aad-9a76379cc511}",
+            "padding" : "0, 0, 0, 0",
+            "startingDirectory" : "%USERPROFILE%"
+        },
 		{
             "name" : "Powershell Gruvbox",
             "commandline" : "pwsh.exe",
