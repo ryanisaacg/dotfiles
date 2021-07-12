@@ -34,5 +34,9 @@
     helper = store
 [http]
     proxy = fwdproxy:8080
+    proxySSLCert = /var/facebook/credentials/ryanisaacg/x509/ryanisaacg.pem
+    proxySSLKey = /var/facebook/credentials/ryanisaacg/x509/ryanisaacg.pem
 [https]
     proxy = fwdproxy:8080
+    proxySSLCert = /var/facebook/credentials/ryanisaacg/x509/ryanisaacg.pem
+    proxySSLKey = /var/facebook/credentials/ryanisaacg/x509/ryanisaacg.pem
