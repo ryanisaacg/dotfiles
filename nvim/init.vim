@@ -15,6 +15,9 @@ Plug 'w0rp/ale' " Erorr highlighting / linting while editing
 Plug 'morhetz/gruvbox'
 Plug 'hhvm/vim-hack' " Hack support
 Plug 'dkarter/bullets.vim'
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'plasticboy/vim-markdown'
+Plug 'solarnz/thrift.vim'
 Plug 'sheerun/vim-polyglot'
 call plug#end()
 
@@ -194,6 +197,9 @@ if stridx(hostname(), "infra.net") != -1 || stridx(hostname(), "devvm") != -1
   nnoremap <leader>6 :call PopulatePasteBufferFromOSX()<cr>
   nnoremap <leader>7 :call PropagatePasteBufferToOSX()<cr>
   set shiftwidth=2
+
+  command! Diffusion :echo "https://www.internalfb.com/code/www/" . expand('%')
+  command! Pastry :w !pastry
 endif
 
 " Configure imago stuff
@@ -203,3 +209,6 @@ set conceallevel=2
 " Stop writing to all
 cabbrev W w
 
+let g:vim_markdown_folding_disabled = 1
+" Insert current timestamp
+map <leader>d :put =strftime('Time: %a %Y-%m-%d %H:%M:%S')<CR>
