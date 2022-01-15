@@ -28,7 +28,18 @@ vim.o.splitright = true -- When making horizontal splits, open the right
 vim.o.clipboard = 'unnamed'
 
 -- Theming
-vim.o.statusline = '%f%m%r%h%w%= [%Y] [%{&ff}] [line: %0l, column: %0v] [%p%%]'
+function _G.current_client()
+    local bufnr = vim.fn.bufnr()
+    local clients = vim.lsp.get_active_clients()
+    for _, client in ipairs(clients) do
+        if client.attached_buffers[bufnr] then
+            return '['..client.name..']'
+        end
+    end
+    return ''
+end
+
+vim.o.statusline = '%f%m%r%h%w%= %{v:lua.current_client()} [%Y] [%{&ff}] [line: %0l, column: %0v] [%p%%]'
 vim.cmd('colorscheme gruvbox')
 
 -- Use ripgrep for the :grep command
