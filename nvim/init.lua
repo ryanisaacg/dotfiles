@@ -6,11 +6,9 @@ Plug 'airblade/vim-gitgutter' -- Show git diff lines
 Plug 'tpope/vim-rsi' -- Add the readline keys to Vim
 Plug 'tpope/vim-eunuch' -- Some nice unix stuff for Vim (rename file and buffer, sudo edit)
 Plug 'morhetz/gruvbox'
-Plug 'hhvm/vim-hack' -- Hack support
-Plug 'dkarter/bullets.vim'
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'plasticboy/vim-markdown'
-Plug 'solarnz/thrift.vim'
+--Plug 'hhvm/vim-hack' -- Hack support
+--Plug 'MaxMEllon/vim-jsx-pretty'
+--Plug 'solarnz/thrift.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'neovim/nvim-lspconfig'
 vim.call('plug#end')
