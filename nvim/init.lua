@@ -183,7 +183,7 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 lsp.flow.setup {
-    cmd = { "flow", "setup" },
+    cmd = { "flow", "lsp" },
     on_attach = on_attach,
 }
 lsp.rust_analyzer.setup {
