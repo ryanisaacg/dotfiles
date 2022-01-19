@@ -80,12 +80,6 @@ leadmap('h', '<C-w>h')
 leadmap('j', '<C-w>j')
 leadmap('k', '<C-w>k')
 leadmap('l', '<C-w>l')
--- Common ALE operations
-leadmap('ak', '<Plug>(ale_previous_wrap)')
-leadmap('aj', '<Plug>(ale_next_wrap)')
-leadmap('ah', ':ALEHover<CR>')
-leadmap('ad', ':ALEGoToDefinition<CR>')
-leadmap('ad', ':ALEFindReferences<CR>')
 
 keymap('t', ':FZF<CR>') -- Fuzzy finding
 leadmap('c', ':nohl<CR>') -- Clear highlighting
