@@ -186,23 +186,26 @@ local on_attach = function(client, bufnr)
   keymap('<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 end
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-lsp.flow.setup {
-    cmd = { "flow", "setup" },
-    on_attach = on_attach,
-}
-lsp.rust_analyzer.setup {
-    on_attach = on_attach,
-    settings = {
-        ["rust-analyzer"] = {
-            procMacro = { enable = true },
-            diagnostics = {
-                enable = true,
-                disabled = {"unresolved-proc-macro"},
-                enableExperimental = true,
-            },
+local language_servers = {
+    flow = {
+        cmd = { "flow", "setup" },
+    },
+    tsserver = {},
+    pylsp = {},
+    rust_analyzer = {
+        settings = {
+            ["rust-analyzer"] = {
+                procMacro = { enable = true },
+                diagnostics = {
+                    enable = true,
+                    disabled = {"unresolved-proc-macro"},
+                    enableExperimental = true,
+                },
+            }
         }
-    }
+    },
 }
-
+for server,settings in pairs(language_servers) do
+    settings.on_attach = on_attach
+    lsp[server].setup(settings)
+end
