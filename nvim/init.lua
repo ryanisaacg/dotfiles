@@ -140,6 +140,16 @@ vim.cmd [[
     endif
 ]]
 
+vim.cmd [[
+    function! GetGithubURL()
+        let origin = substitute(trim(system("git remote get-url origin")), '.git$', '', '')
+        let branch_path = trim(system("git symbolic-ref refs/remotes/origin/HEAD"))
+        let branch = fnamemodify(branch_path, ":t")
+        return origin.."/blob/"..branch.."/"..expand('%')
+    endfunction
+    command! Github :echo GetGithubURL()
+]]
+
 -- Stop writing to all
 vim.cmd('cabbrev W w')
 
