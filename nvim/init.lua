@@ -8,6 +8,8 @@ Plug 'tpope/vim-eunuch' -- Some nice unix stuff for Vim (rename file and buffer,
 Plug 'morhetz/gruvbox'
 Plug 'sheerun/vim-polyglot'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 vim.call('plug#end')
 
 -- Some basic utilities
