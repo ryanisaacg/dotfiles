@@ -191,8 +191,9 @@ end
 
 local language_servers = {
     flow = {
-        cmd = { "flow", "setup" },
+        cmd = { "flow", "lsp" },
     },
+    hhvm = {},
     tsserver = {},
     pylsp = {},
     rust_analyzer = {
