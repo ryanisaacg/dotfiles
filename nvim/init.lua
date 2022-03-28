@@ -208,12 +208,44 @@ local on_attach = function(client, bufnr)
   keymap('<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 end
 
+local function filter(arr, fn)
+  if type(arr) ~= "table" then
+    return arr
+  end
+
+  local filtered = {}
+  for k, v in pairs(arr) do
+    if fn(v, k, arr) then
+      table.insert(filtered, v)
+    end
+  end
+
+  return filtered
+end
+
 local language_servers = {
     flow = {
         cmd = { "flow", "lsp" },
     },
     hhvm = {},
-    tsserver = {},
+    tsserver = {
+      handlers = {
+        ['textDocument/definition'] = function(err, result, method, ...)
+          if vim.tbl_islist(result) and #result > 1 then
+            -- Filter out type definitions confusing TypeScript as to where the real declaration
+            -- of a given value is. Most common when working with React and wrapping exported
+            -- types in React types
+            local filtered_result = filter(result, function(value)
+              -- TODO: this could probably be made faster
+              return string.match(value.uri, '%a*/index.d.ts') == nil
+            end)
+            return vim.lsp.handlers['textDocument/definition'](err, filtered_result, method, ...)
+          end
+
+          vim.lsp.handlers['textDocument/definition'](err, result, method, ...)
+        end
+  }
+    },
     pylsp = {},
     rust_analyzer = {
         settings = {
@@ -232,3 +264,4 @@ for server,settings in pairs(language_servers) do
     settings.on_attach = on_attach
     lsp[server].setup(settings)
 end
+
