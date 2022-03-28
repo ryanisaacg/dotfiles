@@ -10,6 +10,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'chrisbra/Colorizer'
 vim.call('plug#end')
 
 -- Some basic utilities
@@ -39,7 +40,11 @@ function _G.current_client()
 end
 
 vim.o.statusline = '%f%m%r%h%w%= %{v:lua.current_client()} [%Y] [%{&ff}] [line: %0l, column: %0v] [%p%%]'
+
 vim.cmd('colorscheme gruvbox')
+vim.o.termguicolors = true
+vim.g.colorizer_auto_filetype = 'css,html,js,jsx,typescript,typescriptreact'
+vim.g.colorizer_colornames = 0
 
 -- Use ripgrep for the :grep command
 vim.o.grepprg='rg --vimgrep --no-heading --smart-case'
