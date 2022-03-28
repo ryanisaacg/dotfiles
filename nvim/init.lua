@@ -54,6 +54,9 @@ vim.o.grepprg='rg --vimgrep --no-heading --smart-case'
 -- Each indent should be 4 space characters
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
+vim.cmd [[
+  autocmd FileType javascript,typescript,javascriptreact,typescriptreact setlocal shiftwidth=2 tabstop=2
+]]
 vim.o.autoindent = true
 vim.o.expandtab = true
 vim.o.smarttab = true
