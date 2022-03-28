@@ -90,7 +90,7 @@ leadmap('k', '<C-w>k')
 leadmap('l', '<C-w>l')
 
 keymap('t', ':Telescope find_files<CR>') -- Fuzzy finding
-leadmap('t', ':Telescope<CR>') -- Easy telescope access
+leadmap('p', ':Telescope<CR>') -- Easy telescope access
 leadmap('b', ':Telescope buffers<CR>') -- Buffer-specific fuzzy finding
 leadmap('c', ':nohl<CR>') -- Clear highlighting
 leadmap('s', ':buffers<CR>:b') -- Buffer list
