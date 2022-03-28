@@ -11,6 +11,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'chrisbra/Colorizer'
+Plug 'sbdchd/neoformat'
 vim.call('plug#end')
 
 -- Some basic utilities
@@ -156,6 +157,14 @@ vim.cmd [[
     endfunction
     command! Github :echo GetGithubURL()
 ]]
+
+vim.cmd [[
+    augroup fmt
+      autocmd!
+      autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx undojoin | Neoformat
+    augroup END
+]]
+vim.g.neoformat_try_node_exe = 1
 
 -- Stop writing to all
 vim.cmd('cabbrev W w')
