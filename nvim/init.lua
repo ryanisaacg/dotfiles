@@ -89,7 +89,7 @@ leadmap('j', '<C-w>j')
 leadmap('k', '<C-w>k')
 leadmap('l', '<C-w>l')
 
-keymap('t', ':Telescope find_files<CR>') -- Fuzzy finding
+keymap('t', ':FZF<CR>') -- Fuzzy finding
 leadmap('p', ':Telescope<CR>') -- Easy telescope access
 leadmap('b', ':Telescope buffers<CR>') -- Buffer-specific fuzzy finding
 leadmap('c', ':nohl<CR>') -- Clear highlighting
@@ -164,7 +164,7 @@ vim.cmd [[
 vim.cmd [[
     augroup fmt
       autocmd!
-      autocmd BufWritePre *.js,*.jsx,*.ts,*.tsx undojoin | Neoformat
+      au BufWritePre *.js,*.jsx,*.ts,*.tsx try | undojoin | Neoformat | catch /E790/ | Neoformat | endtry
     augroup END
 ]]
 vim.g.neoformat_try_node_exe = 1
