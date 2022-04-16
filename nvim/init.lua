@@ -54,9 +54,13 @@ vim.o.grepprg='rg --vimgrep --no-heading --smart-case'
 -- Each indent should be 4 space characters
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
-vim.cmd [[
-  autocmd FileType javascript,typescript,javascriptreact,typescriptreact setlocal shiftwidth=2 tabstop=2
-]]
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "javascript,typescript,javascriptreact,typescriptreact",
+  callback = function (args)
+      vim.opt_local.shiftwidth = 2
+      vim.opt_local.tabstop = 2
+  end
+})
 vim.o.autoindent = true
 vim.o.expandtab = true
 vim.o.smarttab = true
@@ -100,29 +104,30 @@ leadmap('|', ':vsplit\n')
 
 leadmap('d', ":put =strftime('Time: %a %Y-%m-%d %H:%M:%S')<CR>") -- Insert timestamp
 
-vim.cmd [[
-    function! StripTrailingWhitespace()
+function strip_trailing()
+    vim.cmd [[
       let l = line(".")
       let c = col(".")
       %s/\s\+$//e
       call cursor(l, c)
-    endfunction
-    command! StripTrailing :call StripTrailingWhitespace()
-    au BufWritePre <buffer> :call StripTrailingWhitespace()
-]]
-vim.cmd [[
-    " Set the GUI title of nvim
-    function! SetTitle(title)
-        set title
-        let &titlestring=a:title
-    endfunction
-    command! -nargs=1 Title :call SetTitle(<f-args>) <CR>
-]]
+    ]]
+end
+vim.api.nvim_create_user_command("StripTrailing", strip_trailing, {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "<buffer>",
+    callback = strip_trailing,
+})
+vim.api.nvim_create_user_command("Title", function (opts)
+    vim.o.title = true
+    vim.o.titlestring = opts.args
+end, { nargs = 1 })
 
 -- Don't highlight POSIX sh features as errors
 vim.g.is_posix=1
 
-vim.cmd('command! -nargs=1 Expand :echo expand(<f-args>)')
+vim.api.nvim_create_user_command("Expand", function (opts)
+    print(vim.fn.expand(opts.args))
+end, { nargs = 1 })
 
 -- Enable italics (TODO: does this work?)
 -- vim.o.t_ZH = '\\e[3m'
@@ -136,37 +141,24 @@ vim.cmd [[
     autocmd InsertLeave * highlight ExtraWhitespace ctermbg=red guibg=red
 ]]
 
-vim.cmd [[
-    if stridx(hostname(), "infra.net") != -1 || stridx(hostname(), "devvm") != -1
-      let g:javascript_plugin_flow = 1
 
-      set rtp+=/usr/local/share/myc/vim
-      nmap <leader>t :MYC<CR>
-      source $ADMIN_SCRIPTS/vim/biggrep.vim
-
-      set shiftwidth=2
-
-      command! Diffusion :echo "https://www.internalfb.com/code/www/" . expand('%')
-      command! Pastry :w !pastry
-    endif
-]]
-
-vim.cmd [[
-    function! GetGithubURL()
+vim.api.nvim_create_user_command("Github", function ()
+    -- TODO: lua-ify
+    vim.cmd [[
         let origin = substitute(trim(system("git remote get-url origin")), '.git$', '', '')
         let branch_path = trim(system("git symbolic-ref refs/remotes/origin/HEAD"))
         let branch = fnamemodify(branch_path, ":t")
-        return origin.."/blob/"..branch.."/"..expand('%')
-    endfunction
-    command! Github :echo GetGithubURL()
-]]
+        echo origin.."/blob/"..branch.."/"..expand('%')
+    ]]
+end, {})
 
-vim.cmd [[
-    augroup fmt
-      autocmd!
-      au BufWritePre *.js,*.jsx,*.ts,*.tsx try | undojoin | Neoformat | catch /E790/ | Neoformat | endtry
-    augroup END
-]]
+vim.api.nvim_create_augroup("fmt", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.js,*.jsx,*.ts,*.tsx",
+    callback = function()
+        vim.cmd "try | undojoin | Neoformat | catch /E790/ | Neoformat | endtry"
+    end
+})
 vim.g.neoformat_try_node_exe = 1
 
 -- Stop writing to all
@@ -224,10 +216,6 @@ local function filter(arr, fn)
 end
 
 local language_servers = {
-    flow = {
-        cmd = { "flow", "lsp" },
-    },
-    hhvm = {},
     tsserver = {
       handlers = {
         ['textDocument/definition'] = function(err, result, method, ...)
@@ -246,7 +234,6 @@ local language_servers = {
         end
   }
     },
-    pylsp = {},
     rust_analyzer = {
         settings = {
             ["rust-analyzer"] = {
