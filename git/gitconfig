@@ -31,9 +31,22 @@
 	excludesfile = ~/.config/dotfiles/workshop/.gitignore_global
 	autocrlf = input
 	eol = lf
+    pager = delta
 [merge]
 	defaultToUpstream = true
+    conflictstyle = diff3
 [credential]
 	helper = store
 [pull]
-	rebase = false
+    rebase = false
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    line-numbers = true
+    syntax-theme = gruvbox-dark
+
+[diff]
+    colorMoved = default
