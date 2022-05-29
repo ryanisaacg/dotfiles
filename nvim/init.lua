@@ -42,6 +42,7 @@ end
 
 vim.o.statusline = '%f%m%r%h%w%= %{v:lua.current_client()} [%Y] [%{&ff}] [line: %0l, column: %0v] [%p%%]'
 
+vim.g.gruvbox_italic = 1
 vim.cmd('colorscheme gruvbox')
 vim.o.termguicolors = true
 vim.g.colorizer_auto_filetype = 'css,html,js,jsx,typescript,typescriptreact'
@@ -130,8 +131,10 @@ vim.api.nvim_create_user_command("Expand", function (opts)
 end, { nargs = 1 })
 
 -- Enable italics (TODO: does this work?)
--- vim.o.t_ZH = '\\e[3m'
--- vim.o.t_ZR = '\\e[23m'
+vim.cmd [[
+    let &t_ZH="\e[3m"
+    let &t_ZR="\e[23m"
+]]
 
 vim.cmd [[
     " Highlight trailing whitespace
@@ -232,8 +235,9 @@ local language_servers = {
 
           vim.lsp.handlers['textDocument/definition'](err, result, method, ...)
         end
-  }
+      }
     },
+    eslint = {},
     rust_analyzer = {
         settings = {
             ["rust-analyzer"] = {
