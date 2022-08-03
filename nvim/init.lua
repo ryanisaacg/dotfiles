@@ -89,14 +89,8 @@ function leadmap(key, command)
 end
 leadmap('r', ':so %\n') -- Load a config
 -- Split navigation
-leadmap('h', '<C-w>h')
-leadmap('j', '<C-w>j')
-leadmap('k', '<C-w>k')
-leadmap('l', '<C-w>l')
 
 keymap('t', ':FZF<CR>') -- Fuzzy finding
-leadmap('p', ':Telescope<CR>') -- Easy telescope access
-leadmap('b', ':Telescope buffers<CR>') -- Buffer-specific fuzzy finding
 leadmap('c', ':nohl<CR>') -- Clear highlighting
 leadmap('s', ':buffers<CR>:b') -- Buffer list
 leadmap('S', ':b#\n') -- Switch between the last two buffers
