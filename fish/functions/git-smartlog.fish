@@ -9,16 +9,19 @@ function git_smartlog
         else
             echo -n "  "
         end
+        set commits_behind (git rev-list --left-only --count origin/dev...$branch)
+        set commits_ahead (git rev-list --right-only --count origin/dev...$branch)
+        set commits " [B$commits_behind|A$commits_ahead]"
         set branch_info (echo "$prs" | jq "map(select(.headRefName==\"$branch\"))[0]")
         if [ "$branch_info" != "null" ]
             set number (echo "$branch_info" | jq ".number")
             set title (echo "$branch_info" | jq ".title" -r)
             set cols (expr (tput cols) - 5)
-            echo "$branch - [$number] $title" | sed "s/\(.\{$cols\}\).*/\1.../"
+            echo "$branch $commits - [$number] $title" | sed "s/\(.\{$cols\}\).*/\1.../"
         else if contains "  origin/$branch" $remote_branches
-            echo "$branch - Remote"
+            echo "$branch $commits - Remote"
         else
-            echo "$branch - Local"
+            echo "$branch $commits - Local"
         end
     end
 end
