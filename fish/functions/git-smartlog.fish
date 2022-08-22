@@ -10,8 +10,12 @@ function git_smartlog
             echo -n "  "
         end
         set commits_behind (git rev-list --left-only --count origin/dev...$branch)
-        set commits_ahead (git rev-list --right-only --count origin/dev...$branch)
-        set commits " [B$commits_behind|A$commits_ahead]"
+        set commits_ahead (git rev-list --right-only --count origin/$branch...$branch &> /dev/null) # TODO: get the stderr actual output
+        if [ $status != 0 ]
+            set commits " [B$commits_behind]"
+        else
+            set commits " [B$commits_behind|↑]"
+        end
         set branch_info (echo "$prs" | jq "map(select(.headRefName==\"$branch\"))[0]")
         if [ "$branch_info" != "null" ]
             set number (echo "$branch_info" | jq ".number")
