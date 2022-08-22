@@ -11,7 +11,7 @@ function git_smartlog
         end
         set commits_behind (git rev-list --left-only --count origin/dev...$branch)
         set commits_ahead (git rev-list --right-only --count origin/$branch...$branch &> /dev/null) # TODO: get the stderr actual output
-        if [ $status != 0 ]
+        if [ $status != 0 ]; and [ "$commits_ahead" != "0" ];
             set commits " [B$commits_behind]"
         else
             set commits " [B$commits_behind|↑]"
