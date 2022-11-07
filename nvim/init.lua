@@ -153,7 +153,12 @@ vim.api.nvim_create_augroup("fmt", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*.js,*.jsx,*.ts,*.tsx",
     callback = function()
+        -- Ensure CWD matches the file being edited, so the prettier config will be picked up
+        cwd = vim.fn.getcwd()
+        parent_folder = vim.fn.expand("%:h")
+        vim.cmd("cd " .. parent_folder)
         vim.cmd "try | undojoin | Neoformat | catch /E790/ | Neoformat | endtry"
+        vim.cmd("cd " .. cwd)
     end
 })
 vim.g.neoformat_try_node_exe = 1
