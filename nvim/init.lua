@@ -161,6 +161,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         vim.cmd("cd " .. cwd)
     end
 })
+vim.api.nvim_create_autocmd("BufWritePre", {
+    -- Doing my little CWD hack breaks Neoformat's rustfmt integration, so rust is separate
+    pattern = "*.rs",
+    callback = function()
+        vim.cmd "try | undojoin | Neoformat | catch /E790/ | Neoformat | endtry"
+    end
+})
 vim.g.neoformat_try_node_exe = 1
 
 -- Stop writing to all
