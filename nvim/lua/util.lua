@@ -25,4 +25,11 @@ function m.trim(s)
    return (s:gsub("^%s*(.-)%s*$", "%1"))
 end
 
+function m.keymap(key, command)
+	vim.api.nvim_set_keymap('n', key, command, {noremap = true, silent=true})
+end
+function m.leadmap(key, command)
+    m.keymap('<leader>'..key, command)
+end
+
 return m

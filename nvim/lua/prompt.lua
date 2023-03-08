@@ -1,0 +1,26 @@
+function _G.current_client()
+    local bufnr = vim.fn.bufnr()
+    local clients = vim.lsp.get_active_clients()
+    local attached_clients = {}
+    local result = ''
+
+    for _, client in ipairs(clients) do
+        if client.attached_buffers[bufnr] then
+            table.insert(attached_clients, client.name)
+            result = result .. '[LSP:'..client.name..']'
+        end
+    end
+
+    if #attached_clients > 0 then
+        local result = '[LSP:'
+        for i=1,(#attached_clients -1) do
+            result = result..attached_clients[i]..','
+        end
+        result = result..attached_clients[#attached_clients]..']'
+        return result
+    else
+        return ''
+    end
+end
+
+vim.o.statusline = '%f%m%r%h%w%= %{v:lua.current_client()} [FT:%Y] [%{&ff}] [line: %0l, column: %0v] [%p%%]'
