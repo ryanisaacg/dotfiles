@@ -1,2 +1,0 @@
-set runtimepath=~/.config/dotfiles/vim,$VIM,$VIMRUNTIME
-source ~/.config/dotfiles/vim/init.vim
