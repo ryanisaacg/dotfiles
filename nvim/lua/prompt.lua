@@ -1,13 +1,11 @@
-function _G.current_client()
+function _G.lsp_client_for_prompt()
     local bufnr = vim.fn.bufnr()
     local clients = vim.lsp.get_active_clients()
     local attached_clients = {}
-    local result = ''
 
     for _, client in ipairs(clients) do
         if client.attached_buffers[bufnr] then
             table.insert(attached_clients, client.name)
-            result = result .. '[LSP:'..client.name..']'
         end
     end
 
@@ -23,4 +21,4 @@ function _G.current_client()
     end
 end
 
-vim.o.statusline = '%f%m%r%h%w%= %{v:lua.current_client()} [FT:%Y] [%{&ff}] [line: %0l, column: %0v] [%p%%]'
+vim.o.statusline = '%f%m%r%h%w%= %{v:lua.lsp_client_for_prompt()} [FT:%Y] [%{&ff}] [line: %0l, column: %0v] [%p%%]'

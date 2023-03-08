@@ -1,4 +1,4 @@
-function strip_trailing()
+local function strip_trailing()
     local line = vim.fn.line('.')
     local col = vim.fn.col('.')
     vim.cmd [[%s/\s\+$//e]]

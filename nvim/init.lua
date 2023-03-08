@@ -5,13 +5,13 @@ Plug('junegunn/fzf', { dir = '~/.fzf', ['do'] = './install --all' }) -- File fuz
 Plug 'airblade/vim-gitgutter' -- Show git diff lines
 Plug 'tpope/vim-rsi' -- Add the readline keys to Vim
 Plug 'tpope/vim-eunuch' -- Some nice unix stuff for Vim (rename file and buffer, sudo edit)
-Plug 'morhetz/gruvbox'
-Plug 'sheerun/vim-polyglot'
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'chrisbra/Colorizer'
-Plug 'sbdchd/neoformat'
+Plug 'morhetz/gruvbox' -- Colorscheme
+Plug 'sheerun/vim-polyglot' -- Lazy-loaded syntax highlighting
+Plug 'neovim/nvim-lspconfig' -- LSP
+Plug 'chrisbra/Colorizer' -- Show color definitions as their color, highlighted
+Plug 'sbdchd/neoformat' -- Apply auto-formatting when applicable
+Plug 'nvim-lua/plenary.nvim' -- Dependency for telescope
+Plug 'nvim-telescope/telescope.nvim' -- Searching plugin
 vim.call('plug#end')
 
 require('keybinds')
