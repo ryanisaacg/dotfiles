@@ -21,4 +21,5 @@ function _G.lsp_client_for_prompt()
     end
 end
 
-vim.o.statusline = '%f%m%r%h%w%= %{v:lua.lsp_client_for_prompt()} [FT:%Y] [%{&ff}] [line: %0l, column: %0v] [%p%%]'
+-- filename, buncha stuff              LSP clients                filetype  CR/LF    cursor       doc position
+vim.o.statusline = '%f%m%r%h%w%= %{v:lua.lsp_client_for_prompt()} [FT:%Y] [%{&ff}] [l:%0l,c:%0v] [%p%%]'
