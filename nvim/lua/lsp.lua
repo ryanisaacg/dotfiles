@@ -95,8 +95,12 @@ local language_servers = {
         },
     },
 }
+
+-- Indicate that we should have autocompletion - required for nvim-cmp
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 for server,settings in pairs(language_servers) do
     settings.on_attach = on_attach
+    settings.capabilities = capabilities
     lsp[server].setup(settings)
 end
 

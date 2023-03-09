@@ -12,6 +12,12 @@ Plug 'chrisbra/Colorizer' -- Show color definitions as their color, highlighted
 Plug 'sbdchd/neoformat' -- Apply auto-formatting when applicable
 Plug 'nvim-lua/plenary.nvim' -- Dependency for telescope
 Plug 'nvim-telescope/telescope.nvim' -- Searching plugin
+
+-- Autocomplete
+Plug 'hrsh7th/nvim-cmp' -- Completion plugin
+Plug 'hrsh7th/vim-vsnip' -- "Snippet engine"
+Plug 'hrsh7th/cmp-vsnip' --  vim-vsnip integration with nvim-cmp
+Plug 'hrsh7th/cmp-nvim-lsp' -- Tell the LSP that we have completion capability
 vim.call('plug#end')
 
 require('keybinds')
@@ -21,6 +27,7 @@ require('neoformat')
 require('github')
 require('trailing')
 require('indent')
+require('autocomplete')
 
 -- Some basic utilities
 vim.o.bg = 'dark'
