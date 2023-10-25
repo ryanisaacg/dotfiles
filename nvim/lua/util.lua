@@ -2,7 +2,7 @@ local m = {}
 local api = vim.api
 
 function m.keys(command)
-    return api.nvim_feedkeys(util.termcode(command), 'm', false)
+    return api.nvim_feedkeys(m.termcode(command), 'm', false)
 end
 
 function m.termcode(string)
@@ -26,7 +26,7 @@ function m.trim(s)
 end
 
 function m.keymap(key, command)
-	vim.api.nvim_set_keymap('n', key, command, {noremap = true, silent=true})
+	vim.keymap.set('n', key, command, {noremap = true, silent=true})
 end
 function m.leadmap(key, command)
     m.keymap('<leader>'..key, command)

@@ -5,17 +5,37 @@ vim.g.mapleader = ' '
 util.leadmap('r', ':so %\n') -- Load a config
 -- Split navigation
 
-util.keymap('t', ':FZF<CR>') -- Fuzzy finding
 util.leadmap('c', ':nohl<CR>') -- Clear highlighting
-util.leadmap('s', ':buffers<CR>:b') -- Buffer list
-util.leadmap('S', ':b#\n') -- Switch between the last two buffers
-util.leadmap('-', ':split\n')
-util.leadmap('|', ':vsplit\n')
 
-util.leadmap('d', ":put =strftime('Time: %a %Y-%m-%d %H:%M:%S')<CR>") -- Insert timestamp
+if vim.g.vscode then
+    local vscode = require("vscode-neovim")
+    local function vscall(command)
+        return function()
+            vscode.call(command)
+        end
+    end
+    -- Normal stuff
+    util.keymap('t', vscall("workbench.action.quickOpen"))
+    util.leadmap('-', vscall("workbench.action.splitEditorDown"))
+    util.leadmap('|', vscall("workbench.action.splitEditorRight"))
+    -- Telescope equivalent
+    util.keymap('<leader>tg', vscall("workbench.view.search"))
+    -- LSP stuff
+    util.keymap('<space>rn', vscall("editor.action.rename"))
+    util.keymap('<space>sa', vscall("editor.action.quickFix"))
+    util.keymap('[d', vscall("editor.action.marker.prev"))
+    util.keymap(']d', vscall("editor.action.marker.next"))
+    util.keymap('gr', vscall("editor.action.referenceSearch.trigger"))
+    util.leadmap('e', vscall("editor.action.showHover"))
+else
+    util.keymap('t', ':FZF<CR>') -- Fuzzy finding
+    util.leadmap('-', ':split\n')
+    util.leadmap('|', ':vsplit\n')
 
-local telescope = require('telescope.builtin')
-vim.keymap.set('n', '<leader>tg', telescope.live_grep, {noremap=true, silent=true})
-vim.keymap.set('n', '<leader>tf', telescope.find_files, {noremap=true, silent=true})
-vim.keymap.set('n', '<leader>tb', telescope.buffers, {noremap=true, silent=true})
-vim.keymap.set('n', '<leader>tr', telescope.reloader, {noremap=true, silent=true})
+    local telescope = require('telescope.builtin')
+    vim.keymap.set('n', '<leader>tg', telescope.live_grep, {noremap=true, silent=true})
+    vim.keymap.set('n', '<leader>tf', telescope.find_files, {noremap=true, silent=true})
+    vim.keymap.set('n', '<leader>tb', telescope.buffers, {noremap=true, silent=true})
+    vim.keymap.set('n', '<leader>tr', telescope.reloader, {noremap=true, silent=true})
+end
+

@@ -1,33 +1,41 @@
 local Plug = vim.fn['plug#']
 
-vim.call('plug#begin', vim.fn.stdpath('data')..'/plugged')
-Plug('junegunn/fzf', { dir = '~/.fzf', ['do'] = './install --all' }) -- File fuzzy finding
-Plug 'airblade/vim-gitgutter' -- Show git diff lines
-Plug 'tpope/vim-rsi' -- Add the readline keys to Vim
-Plug 'tpope/vim-eunuch' -- Some nice unix stuff for Vim (rename file and buffer, sudo edit)
-Plug 'morhetz/gruvbox' -- Colorscheme
-Plug 'sheerun/vim-polyglot' -- Lazy-loaded syntax highlighting
-Plug 'neovim/nvim-lspconfig' -- LSP
-Plug 'chrisbra/Colorizer' -- Show color definitions as their color, highlighted
-Plug 'sbdchd/neoformat' -- Apply auto-formatting when applicable
-Plug 'nvim-lua/plenary.nvim' -- Dependency for telescope
-Plug 'nvim-telescope/telescope.nvim' -- Searching plugin
+if not vim.g.vscode then
+    vim.call('plug#begin', vim.fn.stdpath('data')..'/plugged')
+    Plug('junegunn/fzf', { dir = '~/.fzf', ['do'] = './install --all' }) -- File fuzzy finding
+    Plug 'airblade/vim-gitgutter' -- Show git diff lines
+    Plug 'tpope/vim-rsi' -- Add the readline keys to Vim
+    Plug 'tpope/vim-eunuch' -- Some nice unix stuff for Vim (rename file and buffer, sudo edit)
+    Plug 'morhetz/gruvbox' -- Colorscheme
+    Plug 'sheerun/vim-polyglot' -- Lazy-loaded syntax highlighting
+    Plug 'neovim/nvim-lspconfig' -- LSP
+    Plug 'chrisbra/Colorizer' -- Show color definitions as their color, highlighted
+    Plug 'sbdchd/neoformat' -- Apply auto-formatting when applicable
+    Plug 'nvim-lua/plenary.nvim' -- Dependency for telescope
+    Plug 'nvim-telescope/telescope.nvim' -- Searching plugin
 
--- Autocomplete
-Plug 'hrsh7th/nvim-cmp' -- Completion plugin
-Plug 'hrsh7th/vim-vsnip' -- "Snippet engine"
-Plug 'hrsh7th/cmp-vsnip' --  vim-vsnip integration with nvim-cmp
-Plug 'hrsh7th/cmp-nvim-lsp' -- Tell the LSP that we have completion capability
-vim.call('plug#end')
+    Plug 'github/copilot.vim'
+
+    -- Autocomplete
+    Plug 'hrsh7th/nvim-cmp' -- Completion plugin
+    Plug 'hrsh7th/vim-vsnip' -- "Snippet engine"
+    Plug 'hrsh7th/cmp-vsnip' --  vim-vsnip integration with nvim-cmp
+    Plug 'hrsh7th/cmp-nvim-lsp' -- Tell the LSP that we have completion capability
+
+    -- Unity specific
+    Plug 'Hoffs/omnisharp-extended-lsp.nvim'
+    vim.call('plug#end')
+
+    require('autocomplete')
+    require('lsp')
+end
 
 require('keybinds')
-require('lsp')
 require('prompt')
 require('neoformat')
 require('github')
 require('trailing')
 require('indent')
-require('autocomplete')
 
 -- Some basic utilities
 vim.o.bg = 'dark'
@@ -47,11 +55,13 @@ vim.g.vim_markdown_folding_disabled = 1
 
 -- Theming
 
-vim.g.gruvbox_italic = 1
-vim.cmd('colorscheme gruvbox')
-vim.o.termguicolors = true
-vim.g.colorizer_auto_filetype = 'css,html,js,jsx,typescript,typescriptreact'
-vim.g.colorizer_colornames = 0
+if not vim.g.vscode then
+    vim.g.gruvbox_italic = 1
+    vim.cmd('colorscheme gruvbox')
+    vim.o.termguicolors = true
+    vim.g.colorizer_auto_filetype = 'css,html,js,jsx,typescript,typescriptreact'
+    vim.g.colorizer_colornames = 0
+end
 
 -- Use ripgrep for the :grep command
 vim.o.grepprg='rg --vimgrep --no-heading --smart-case'
