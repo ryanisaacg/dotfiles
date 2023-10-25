@@ -1,13 +1,12 @@
 # This is Git's per-user configuration file.
 [user]
-	name = Ryan Goldstein
-	email = ryan@ryanisaacg.com
+	name = Ryan
+	email = ryanisaacg@users.noreply.github.com
 [alias]
     pl=pull --ff-only --prune
     pu=push
     ac=!git active
     st=status
-    sl=!git smartlog
     hs=!git history
     cm=commit --verbose
     ca=commit --verbose --all
@@ -19,8 +18,6 @@
 
     co-pr = !sh -c 'git fetch origin pull/$1/head:pr/$1 && git checkout pr/$1' -
     ff=merge --ff-only
-    amend=commit --amend --verbose
-    smartlog=!fish -c git_smartlog
     history=log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     staged = diff --cached
     tags = tag -l
@@ -28,6 +25,7 @@
     branches = branch -a
     remotes = remote -v
     stashes = stash list
+    detach = checkout --detach
 [core]
 	excludesfile = ~/.config/dotfiles/workshop/.gitignore_global
 	autocrlf = input
