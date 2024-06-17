@@ -14,8 +14,6 @@ if not vim.g.vscode then
     Plug 'nvim-lua/plenary.nvim' -- Dependency for telescope
     Plug 'nvim-telescope/telescope.nvim' -- Searching plugin
 
-    Plug 'github/copilot.vim'
-
     -- Autocomplete
     Plug 'hrsh7th/nvim-cmp' -- Completion plugin
     Plug 'hrsh7th/vim-vsnip' -- "Snippet engine"
