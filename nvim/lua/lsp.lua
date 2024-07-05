@@ -228,6 +228,18 @@ local capabilities = vim.tbl_deep_extend("force", require('cmp_nvim_lsp').defaul
     },
 })
 
+-- Patch brick_lsp into the config
+require('lspconfig.configs').brick_lsp = {
+    default_config = {
+        cmd = {'target/debug/brick-lsp'},
+        filetypes = {'brick'};
+        root_dir = function(fname)
+            return lsp.util.find_git_ancestor(fname)
+        end;
+        settings = {};
+    };
+}
+
 
 for server,settings in pairs(language_servers) do
     settings.on_attach = on_attach
