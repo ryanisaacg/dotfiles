@@ -26,6 +26,7 @@
     remotes = remote -v
     stashes = stash list
     detach = checkout --detach
+    close = !sh -c 'git hide ..$1 && git branch -D $1' -
 [core]
 	excludesfile = ~/.config/dotfiles/workshop/.gitignore_global
 	autocrlf = input
