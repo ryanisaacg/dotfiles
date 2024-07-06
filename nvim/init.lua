@@ -6,7 +6,7 @@ if not vim.g.vscode then
     Plug 'airblade/vim-gitgutter' -- Show git diff lines
     Plug 'tpope/vim-rsi' -- Add the readline keys to Vim
     Plug 'tpope/vim-eunuch' -- Some nice unix stuff for Vim (rename file and buffer, sudo edit)
-    Plug 'morhetz/gruvbox' -- Colorscheme
+    Plug 'olimorris/onedarkpro.nvim' -- colorscheme
     Plug 'sheerun/vim-polyglot' -- Lazy-loaded syntax highlighting
     Plug 'neovim/nvim-lspconfig' -- LSP
     Plug 'chrisbra/Colorizer' -- Show color definitions as their color, highlighted
@@ -19,9 +19,6 @@ if not vim.g.vscode then
     Plug 'hrsh7th/vim-vsnip' -- "Snippet engine"
     Plug 'hrsh7th/cmp-vsnip' --  vim-vsnip integration with nvim-cmp
     Plug 'hrsh7th/cmp-nvim-lsp' -- Tell the LSP that we have completion capability
-
-    -- Unity specific
-    Plug 'Hoffs/omnisharp-extended-lsp.nvim'
     vim.call('plug#end')
 
     require('autocomplete')
@@ -54,9 +51,17 @@ vim.g.vim_markdown_folding_disabled = 1
 -- Theming
 
 if not vim.g.vscode then
-    vim.g.gruvbox_italic = 1
-    vim.cmd('colorscheme gruvbox')
+    require("onedarkpro").setup({
+      highlights = {
+        Comment = { italic = true, extend = true }
+      },
+    })
+
+    vim.cmd('colorscheme onedark')
     vim.o.termguicolors = true
+    vim.cmd('hi StatusLineNC guibg=#1F1F1F')
+    vim.cmd('hi StatusLine guibg=#444444')
+
     vim.g.colorizer_auto_filetype = 'css,html,js,jsx,typescript,typescriptreact'
     vim.g.colorizer_colornames = 0
 end
