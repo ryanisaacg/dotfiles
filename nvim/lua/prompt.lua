@@ -1,6 +1,6 @@
 function _G.lsp_client_for_prompt()
     local bufnr = vim.fn.bufnr()
-    local clients = vim.lsp.get_active_clients()
+    local clients = vim.lsp.get_clients()
     local attached_clients = {}
 
     for _, client in ipairs(clients) do
