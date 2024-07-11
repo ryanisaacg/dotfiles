@@ -94,7 +94,8 @@ local language_servers = {
             },
         },
     },
-    brick_lsp = {}
+    brick_lsp = {},
+    zls = {}
 }
 
 -- Patch brick_lsp into the config
