@@ -45,7 +45,7 @@ local function filter(arr, fn)
 end
 
 local language_servers = {
-    tsserver = {
+    ts_ls = {
       handlers = {
         ['textDocument/definition'] = function(err, result, method, ...)
           if vim.tbl_islist(result) and #result > 1 then

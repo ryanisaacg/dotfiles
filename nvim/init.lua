@@ -13,6 +13,7 @@ if not vim.g.vscode then
     Plug 'sbdchd/neoformat' -- Apply auto-formatting when applicable
     Plug 'nvim-lua/plenary.nvim' -- Dependency for telescope
     Plug 'nvim-telescope/telescope.nvim' -- Searching plugin
+    Plug 'vim-test/vim-test' -- test runner
 
     -- Autocomplete
     Plug 'hrsh7th/nvim-cmp' -- Completion plugin
@@ -97,4 +98,18 @@ vim.api.nvim_create_user_command("Expand", function (opts)
     print(vim.fn.expand(opts.args))
 end, { nargs = 1 })
 
+-- Test runner
+vim.g["test#strategy"] = "neovim"
 
+-- Git bash on windows
+if vim.fn.has('win32') then
+vim.cmd [[
+ let &shell='bash.exe'
+ let &shellcmdflag = '-c'
+ let &shellredir = '>%s 2>&1'
+ set shellquote= shellxescape=
+ " set noshelltemp
+ set shellxquote=
+ let &shellpipe='2>&1| tee'
+]]
+end

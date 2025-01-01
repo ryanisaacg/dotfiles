@@ -37,5 +37,7 @@ else
     vim.keymap.set('n', '<leader>tf', telescope.find_files, {noremap=true, silent=true})
     vim.keymap.set('n', '<leader>tb', telescope.buffers, {noremap=true, silent=true})
     vim.keymap.set('n', '<leader>tr', telescope.reloader, {noremap=true, silent=true})
+
+    util.leadmap('rt', ':TestNearest<CR>')
 end
 
