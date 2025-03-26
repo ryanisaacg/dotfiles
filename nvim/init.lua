@@ -101,15 +101,7 @@ end, { nargs = 1 })
 -- Test runner
 vim.g["test#strategy"] = "neovim"
 
--- Git bash on windows
+-- Don't use git bash on windows - it causes really weird issues with temp files and paths and such
 if vim.fn.has('win32') then
-vim.cmd [[
- let &shell='bash.exe'
- let &shellcmdflag = '-c'
- let &shellredir = '>%s 2>&1'
- set shellquote= shellxescape=
- " set noshelltemp
- set shellxquote=
- let &shellpipe='2>&1| tee'
-]]
+    vim.o.shell = 'cmd.exe'
 end
