@@ -28,16 +28,34 @@ if vim.g.vscode then
     util.keymap('gr', vscall("editor.action.referenceSearch.trigger"))
     util.leadmap('e', vscall("editor.action.showHover"))
 else
+    -- Spacemacs compatibility - map C-g to Esc
+	-- vim.keymap.set({ 'n', 'i', 'v', 'x', 's', 'o', 't', 'c' }, '<C-g>', '<Esc>', {noremap = true, silent=true})
+
     util.keymap('t', ':FZF<CR>') -- Fuzzy finding
+    util.leadmap('w-', ':split\n')
     util.leadmap('-', ':split\n')
+    util.leadmap('w/', ':vsplit\n')
     util.leadmap('|', ':vsplit\n')
 
-    local telescope = require('telescope.builtin')
-    vim.keymap.set('n', '<leader>tg', telescope.live_grep, {noremap=true, silent=true})
-    vim.keymap.set('n', '<leader>tf', telescope.find_files, {noremap=true, silent=true})
-    vim.keymap.set('n', '<leader>tb', telescope.buffers, {noremap=true, silent=true})
-    vim.keymap.set('n', '<leader>tr', telescope.reloader, {noremap=true, silent=true})
+    local telescope_settings = {
+        attach_mappings = function (_, map)
+            local actions = require('telescope.actions')
+            -- As above - spacemacs compat to close out of telescope actions
+            map({"i", "n"}, "<C-g>", actions.close)
 
-    util.leadmap('rt', ':TestNearest<CR>')
+            return true
+        end
+    }
+    local telescope = require('telescope.builtin')
+    util.leadmap('sd', function () telescope.live_grep(telescope_settings) end)
+    util.leadmap('pf', function () telescope.find_files(telescope_settings) end)
+    util.leadmap('pb', function () telescope.buffers(telescope_settings) end)
+    util.leadmap('tr', function () telescope.reloader(telescope_settings) end)
+
+    util.leadmap('tn', ':TestNearest<CR>')
+    util.leadmap('tf', ':TestFile<CR>')
+    util.leadmap('tl', ':TestLast<CR>')
+    util.leadmap('ts', ':TestSuite<CR>')
+    util.leadmap('tv', ':TestVisit<CR>')
 end
 

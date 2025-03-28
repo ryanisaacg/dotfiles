@@ -101,7 +101,7 @@ local language_servers = {
 -- Patch brick_lsp into the config
 require('lspconfig.configs').brick_lsp = {
     default_config = {
-        cmd = {'target/debug/brick-lsp'},
+        cmd = {'brick-lsp'},
         filetypes = {'brick'};
         root_dir = function(fname)
             return lsp.util.find_git_ancestor(fname)
