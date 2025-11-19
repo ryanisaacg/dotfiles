@@ -9,6 +9,7 @@ local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
+  -- TODO: I think a lot of these binds are auto-set nowadays...
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   util.keymap('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
   util.keymap('gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
@@ -29,97 +30,63 @@ local on_attach = function(_, bufnr)
   util.keymap('<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 end
 
-local function filter(arr, fn)
-  if type(arr) ~= "table" then
-    return arr
-  end
-
-  local filtered = {}
-  for k, v in pairs(arr) do
-    if fn(v, k, arr) then
-      table.insert(filtered, v)
-    end
-  end
-
-  return filtered
-end
-
-local language_servers = {
-    ts_ls = {
-      handlers = {
-        ['textDocument/definition'] = function(err, result, method, ...)
-          if vim.tbl_islist(result) and #result > 1 then
-            -- Filter out type definitions confusing TypeScript as to where the real declaration
-            -- of a given value is. Most common when working with React and wrapping exported
-            -- types in React types
-            local filtered_result = filter(result, function(value)
-              -- TODO: this could probably be made faster
-              return string.match(value.uri, '%a*/index.d.ts') == nil
-            end)
-            return vim.lsp.handlers['textDocument/definition'](err, filtered_result, method, ...)
-          end
-
-          vim.lsp.handlers['textDocument/definition'](err, result, method, ...)
-        end
-      }
-    },
-    eslint = {},
-    rust_analyzer = {
-        settings = {
-            ["rust-analyzer"] = {
-                procMacro = { enable = true },
-                diagnostics = {
-                    enable = true,
-                    disabled = {"unresolved-proc-macro"},
-                    enableExperimental = true,
-                    refreshSupport = false,
-                },
-            }
+vim.lsp.config('rust_analyzer', {
+    settings = {
+        ["rust-analyzer"] = {
+            procMacro = { enable = true },
+            diagnostics = {
+                enable = true,
+                disabled = {"unresolved-proc-macro"},
+                enableExperimental = true,
+                refreshSupport = false,
+            },
         }
-    },
-    lua_ls = {
-        settings = {
-            Lua = {
-                runtime = {
-                    -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                    version = 'LuaJIT',
-                },
-                diagnostics = {
-                    -- Get the language server to recognize the `vim` global
-                    globals = {'vim'},
-                },
-                workspace = {
-                    -- Make the server aware of Neovim runtime files
-                    library = vim.api.nvim_get_runtime_file("", true),
-                },
+    }
+})
+
+vim.lsp.config('lua_ls', {
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {'vim'},
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
             },
         },
-    },
-    brick_lsp = {},
-    zls = {},
-    gopls = {},
-}
+    }
+})
 
--- Patch brick_lsp into the config
-require('lspconfig.configs').brick_lsp = {
+
+vim.lsp.config('felt_ls', {
     default_config = {
-        cmd = {'brick-lsp'},
-        filetypes = {'brick'};
+        cmd = {'felt-lsp'},
+        filetypes = {'felt'};
         root_dir = function(fname)
             return lsp.util.find_git_ancestor(fname)
         end;
         settings = {};
     };
-}
-
+})
 
 -- Indicate that we should have autocompletion - required for nvim-cmp
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+vim.lsp.config('*', { capabilities })
 
-for server,settings in pairs(language_servers) do
-    settings.on_attach = on_attach
-    settings.capabilities = capabilities
-    vim.lsp.config(server, settings)
-    vim.lsp.enable(server)
-end
-
+-- longstanding typescript issue may or may not be fixed
+-- https://github.com/typescript-language-server/typescript-language-server/issues/216#issuecomment-2798711457
+vim.lsp.enable({
+    'ts_ls',
+    'eslint',
+    'rust_analyzer',
+    'lua_ls',
+    'felt_ls',
+    'zls',
+    'gopls',
+})
