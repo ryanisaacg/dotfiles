@@ -37,6 +37,38 @@ function prompt_section
     set_color normal
 end
 
+function fish_jj_prompt
+    jj log 2>/dev/null --no-graph --ignore-working-copy --color=never --revisions @ \
+      --template '
+      separate(
+          " ",
+          bookmarks.join(", "),
+          change_id.shortest(),
+          if(conflict, label("conflict", "×")),
+          if(divergent, label("divergent", "??")),
+          if(hidden, label("hidden prefix", "hidden")),
+          if(immutable, label("node immutable", "◆")),
+          label("description", if(description.len() == 0,
+              "(no description)",
+              if(description.first_line().len() > 40,
+                  description.first_line().substr(0, 37).trim() ++ "...",
+                  description.first_line()))),
+          coalesce(
+              if(
+                  empty,
+                  coalesce(
+                      if(
+                          parents.len() > 1,
+                          label("empty", "(merged)"),
+                      ),
+                      label("empty", "(empty)"),
+                  ),
+              ),
+          ),
+      )
+  '
+end
+
 function fish_prompt
     set last_status $status
 
@@ -45,16 +77,10 @@ function fish_prompt
     # Line 1
     prompt_section $fish_color_cwd (prompt_pwd)
 
-    set git (fish_git_prompt ' ')
+    set git (fish_vcs_prompt ' ')
     if test -n "$git"
-        printf ' on'
+        printf ' on '
         prompt_section $fish_color_git $git
-    end
-
-    set hg (__fish_hg_prompt)
-    if test -n "$hg"
-        printf ' on'
-        prompt_section $fish_color_git $hg
     end
 
     # Line 2
