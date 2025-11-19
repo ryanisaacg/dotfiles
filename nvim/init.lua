@@ -16,10 +16,9 @@ if not vim.g.vscode then
     Plug 'vim-test/vim-test' -- test runner
     Plug 'skywind3000/asyncrun.vim'
 
-    -- Autocomplete
+    -- Autocomplete (TODO: replace this with the built-in autocomplete support)
     Plug 'hrsh7th/nvim-cmp' -- Completion plugin
     Plug 'hrsh7th/vim-vsnip' -- "Snippet engine"
-    Plug 'hrsh7th/cmp-vsnip' --  vim-vsnip integration with nvim-cmp
     Plug 'hrsh7th/cmp-nvim-lsp' -- Tell the LSP that we have completion capability
     vim.call('plug#end')
 

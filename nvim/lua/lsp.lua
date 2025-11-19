@@ -3,7 +3,7 @@ local util = require("util")
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(_, bufnr)
+local on_attach = function(bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   -- Enable completion triggered by <c-x><c-o>
@@ -76,8 +76,8 @@ vim.lsp.config('felt_ls', {
 })
 
 -- Indicate that we should have autocompletion - required for nvim-cmp
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-vim.lsp.config('*', { capabilities })
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- vim.lsp.config('*', { capabilities })
 
 -- longstanding typescript issue may or may not be fixed
 -- https://github.com/typescript-language-server/typescript-language-server/issues/216#issuecomment-2798711457
@@ -89,4 +89,16 @@ vim.lsp.enable({
     'felt_ls',
     'zls',
     'gopls',
+})
+
+-- Autocompletion
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(ev)
+        on_attach(ev.buf)
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if client:supports_method('textDocument/completion') then
+            --vim.o.completeopt = 'fuzzy,menu,menuone,noinsert,popup'
+            --vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+        end
+    end,
 })
