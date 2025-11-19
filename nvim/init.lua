@@ -32,26 +32,29 @@ require('prompt')
 require('neoformat')
 require('github')
 require('trailing')
-require('indent')
 
 -- Some basic utilities
-vim.o.bg = 'dark'
 vim.o.number = true
-vim.o.mouse = 'a' -- Read mouse events
-vim.o.showmatch = true -- Show matching parens and brackets
-vim.o.hlsearch = true -- Highlight matching items in a search
-vim.o.incsearch = true -- Incrementally search: auto-jump to the first match
-vim.o.hidden = true -- Buffers should stay alive, even if not visible
-vim.o.showcmd = true -- Show commands as they're typed
-vim.o.autoread = true -- Reload files automatically
 vim.o.splitbelow = true -- When making vertical splits, open the bottom
 vim.o.splitright = true -- When making horizontal splits, open the right
 vim.o.clipboard = 'unnamed'
 
 vim.g.vim_markdown_folding_disabled = 1
 
--- Theming
+-- Indentation
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "javascript,typescript,javascriptreact,typescriptreact,html,css",
+  callback = function ()
+      vim.opt_local.shiftwidth = 2
+      vim.opt_local.tabstop = 2
+  end
+})
+vim.o.expandtab = true
+vim.cmd('filetype plugin indent on')
 
+-- Theming
 if not vim.g.vscode then
     require("onedarkpro").setup({
       highlights = {
@@ -72,11 +75,8 @@ end
 vim.o.grepprg='rg --vimgrep --no-heading --smart-case'
 
 -- Text wrapping
-vim.o.wrap = true
 vim.o.linebreak = true
 vim.o.list = false -- list disables linebreak
-vim.o.textwidth=0
-vim.o.wrapmargin=0
 vim.cmd('set formatoptions-=t')
 
 -- Disable backups
