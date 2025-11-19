@@ -38,6 +38,7 @@ function prompt_section
 end
 
 function fish_jj_prompt
+    echo -n ' '
     jj log 2>/dev/null --no-graph --ignore-working-copy --color=never --revisions @ \
       --template '
       separate(
@@ -79,7 +80,7 @@ function fish_prompt
 
     set git (fish_vcs_prompt ' ')
     if test -n "$git"
-        printf ' on '
+        printf ' on'
         prompt_section $fish_color_git $git
     end
 

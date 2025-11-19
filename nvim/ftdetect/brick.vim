@@ -7,3 +7,4 @@ let g:neoformat_brick_brickfmt = {
             \ }
 
 let g:neoformat_enabled_brick = ['brickfmt']
+set cindent

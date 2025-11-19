@@ -72,6 +72,7 @@ local language_servers = {
                     enable = true,
                     disabled = {"unresolved-proc-macro"},
                     enableExperimental = true,
+                    refreshSupport = false,
                 },
             }
         }
@@ -95,7 +96,8 @@ local language_servers = {
         },
     },
     brick_lsp = {},
-    zls = {}
+    zls = {},
+    gopls = {},
 }
 
 -- Patch brick_lsp into the config
@@ -117,6 +119,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 for server,settings in pairs(language_servers) do
     settings.on_attach = on_attach
     settings.capabilities = capabilities
-    lsp[server].setup(settings)
+    vim.lsp.config(server, settings)
+    vim.lsp.enable(server)
 end
 

@@ -36,6 +36,8 @@ else
     util.leadmap('-', ':split\n')
     util.leadmap('w/', ':vsplit\n')
     util.leadmap('|', ':vsplit\n')
+    util.leadmap('w/', ':vsplit\n')
+    util.leadmap('w-', ':split\n')
 
     local telescope_settings = {
         attach_mappings = function (_, map)

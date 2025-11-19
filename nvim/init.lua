@@ -14,6 +14,7 @@ if not vim.g.vscode then
     Plug 'nvim-lua/plenary.nvim' -- Dependency for telescope
     Plug 'nvim-telescope/telescope.nvim' -- Searching plugin
     Plug 'vim-test/vim-test' -- test runner
+    Plug 'skywind3000/asyncrun.vim'
 
     -- Autocomplete
     Plug 'hrsh7th/nvim-cmp' -- Completion plugin
@@ -102,6 +103,17 @@ end, { nargs = 1 })
 vim.g["test#strategy"] = "neovim"
 
 -- Don't use git bash on windows - it causes really weird issues with temp files and paths and such
-if vim.fn.has('win32') then
+if vim.fn.has('win32') == 1 then
     vim.o.shell = 'cmd.exe'
 end
+-- Brick development
+vim.treesitter.language.add('brick', { path = "/Users/ryanisaacg/git/ryanisaacg/brick/tree-sitter-brick/brick.dylib" })
+vim.treesitter.language.register('brick', { 'brick' })
+io.input('/Users/ryanisaacg/git/ryanisaacg/brick/tree-sitter-brick/highlights.scm')
+local highlights = io.read('*all')
+vim.treesitter.query.set('brick', 'highlights', highlights)
+vim.api.nvim_create_autocmd( 'FileType', { pattern = 'brick',
+    callback = function(args)
+        vim.treesitter.start(args.buf, 'brick')
+    end
+})

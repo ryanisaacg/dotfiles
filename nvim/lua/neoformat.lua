@@ -1,6 +1,6 @@
 -- Neoformat on save
 vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*.js,*.jsx,*.ts,*.tsx,*.cs,*.tf",
+    pattern = "*.js,*.jsx,*.ts,*.tsx,*.cs,*.tf*,*.go",
     callback = function()
         -- Ensure CWD matches the file being edited, so the prettier config will be picked up
         local cwd = vim.fn.getcwd()
