@@ -106,13 +106,13 @@ if vim.fn.has('win32') == 1 then
     vim.o.shell = 'cmd.exe'
 end
 -- Brick development
-vim.treesitter.language.add('brick', { path = "/Users/ryanisaacg/git/ryanisaacg/brick/tree-sitter-brick/brick.dylib" })
-vim.treesitter.language.register('brick', { 'brick' })
-io.input('/Users/ryanisaacg/git/ryanisaacg/brick/tree-sitter-brick/highlights.scm')
+vim.treesitter.language.add('felt', { path = "/Users/ryanisaacg/git/rygoldstein/felt/tree-sitter-felt/felt.dylib" })
+vim.treesitter.language.register('felt', { 'felt' })
+io.input('/Users/ryanisaacg/git/rygoldstein/felt/tree-sitter-felt/highlights.scm')
 local highlights = io.read('*all')
-vim.treesitter.query.set('brick', 'highlights', highlights)
-vim.api.nvim_create_autocmd( 'FileType', { pattern = 'brick',
+vim.treesitter.query.set('felt', 'highlights', highlights)
+vim.api.nvim_create_autocmd( 'FileType', { pattern = 'felt',
     callback = function(args)
-        vim.treesitter.start(args.buf, 'brick')
+        vim.treesitter.start(args.buf, 'felt')
     end
 })
