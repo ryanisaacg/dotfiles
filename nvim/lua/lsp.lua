@@ -65,14 +65,9 @@ vim.lsp.config('lua_ls', {
 
 
 vim.lsp.config('felt_ls', {
-    default_config = {
-        cmd = {'felt-lsp'},
-        filetypes = {'felt'};
-        root_dir = function(fname)
-            return lsp.util.find_git_ancestor(fname)
-        end;
-        settings = {};
-    };
+    cmd = {'felt-lsp'},
+    filetypes = {'felt'};
+    settings = {};
 })
 
 -- Indicate that we should have autocompletion - required for nvim-cmp
