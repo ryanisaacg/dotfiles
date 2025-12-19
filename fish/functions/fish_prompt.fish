@@ -79,7 +79,7 @@ function fish_prompt
     prompt_section $fish_color_cwd (prompt_pwd)
 
     set git (fish_vcs_prompt ' ')
-    if test -n "$git"
+    if test -n (string trim "$git")
         printf ' on'
         prompt_section $fish_color_git $git
     end
